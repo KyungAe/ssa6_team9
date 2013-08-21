@@ -1,0 +1,10 @@
+<config>
+  <pjtName>myproject</pjtName>
+  <modulesName>
+    <string>m1</string>
+    <string>m2</string>
+  </modulesName>
+  <ctipUrlList>
+    <string>localhost - http://localhost:9090</string>
+  </ctipUrlList>
+</config>

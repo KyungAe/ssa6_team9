@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+
+	<!-- 쏘엔맵 레이아웃 정의 부분 -->
+
+	<definition name="whereareyouLayout" template="/whereareyou/layouts/standard.jsp">
+		<put-attribute name="top" value="/whereareyou/layouts/top.jsp" />
+		<put-attribute name="left" value="/whereareyou/layouts/left.jsp" />
+		<put-attribute name="body" value="/whereareyou/layouts/welcome.jsp" />
+	</definition>
+
+	<definition name="MapGetPosition"
+		template="/WEB-INF/jsp/whereareyou/project/proxy.jsp">
+	</definition>
+	
+	<!-- empPopup 레이아웃 정의 부분 -->
+
+	<definition name="EmpPopupLayout"
+		template="/WEB-INF/jsp/whereareyou/employee/employee_popup.jsp">
+	</definition>
+	
+	<definition name="searchAddress" template="/WEB-INF/jsp/whereareyou/project/address.jsp">
+	</definition>
+
+	<!-- PopUp 레이아웃 정의 부분 -->
+
+	<definition name="PopupLayout"
+		template="/WEB-INF/jsp/whereareyou/project/project_popup.jsp">
+	</definition>
+	
+	<definition name="PopupMapLayout"
+		template="/WEB-INF/jsp/whereareyou/map/project_popupmap.jsp">
+	</definition>
+
+	<!-- MovieFinder 샘플 레이아웃 -->
+	<definition name="foundationLayout" template="/sample/layouts/standard.jsp">
+		<put-attribute name="top" value="/sample/layouts/top.jsp" />
+		<put-attribute name="left" value="/sample/layouts/left.jsp" />
+		<put-attribute name="body" value="/sample/layouts/welcome.jsp" />
+	</definition>
+
+	<definition name="plugin" template="/plugins.jsp" />
+
+	<definition name="error" extends="foundationLayout">
+		<put-attribute name="body" value="/sample/common/error.jsp" />
+	</definition>
+
+	<definition name="foundationListMovie" extends="foundationLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/foundation/moviefinder/movie/list.jsp" />
+	</definition>
+
+	<definition name="foundationViewMovie" extends="foundationLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/foundation/moviefinder/movie/form.jsp" />
+	</definition>
+
+
+	<!-- 본 프로젝트의 Tiles -->
+
+	<!-- 메인 페이지 -->
+	<definition name="mainPageView" extends="whereareyouLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/whereareyou/main_page.jsp" />
+	</definition>
+
+
+
+	<!-- 프로젝트 메인페이지 -->
+	<definition name="projectMainView" extends="whereareyouLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/whereareyou/project/project_main.jsp" />
+	</definition>
+
+	<!-- 프로젝트 조회(등록, 수정, 삭제) 페이지 -->
+	<definition name="projectInfoView" extends="whereareyouLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/whereareyou/project/project_info.jsp" />
+	</definition>
+
+	<!--  프로젝트 맵 페이지 -->
+	<definition name="projectMapView" extends="whereareyouLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/whereareyou/map/project_map.jsp" />
+	</definition>
+	
+	
+	
+	<!-- 사원 메인 페이지 -->
+	<definition name="empTeamList" extends="whereareyouLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/whereareyou/employee/employee_main.jsp" />
+	</definition>
+
+	<!-- 사원 조회(등록, 수정, 삭제) 페이지 -->
+	<definition name="foundationViewEmployee" extends="whereareyouLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/whereareyou/employee/employee_info.jsp" />
+	</definition>
+	
+	
+	
+	<!-- 주사위 게임 페이지 -->
+	<definition name="diceGameView" extends="whereareyouLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/whereareyou/dice_game.jsp" />
+	</definition>
+	
+	
+	
+	
+	
+	<!-- 엑셀-DB 메인 페이지 -->
+	<definition name="xlsImportMainView" extends="whereareyouLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/whereareyou/xlsimport/xlsimport_main.jsp" />
+	</definition>
+	
+	<!-- DB의 주소를 통해 좌표 매핑 페이지 -->
+	<definition name="addrMappingView" extends="whereareyouLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/whereareyou/xlsimport/addr_mapping.jsp" />
+	</definition>
+	
+	<!-- 여기까지 -->
+
+	<!--Board-START -->
+	<definition name="genListBoard" extends="standardLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/generation/board/list.jsp" />
+	</definition>
+	
+	<definition name="genViewBoard" extends="standardLayout">
+		<put-attribute name="body"
+			value="/WEB-INF/jsp/generation/board/form.jsp" />
+	</definition>
+	<!--Board-END -->
+
+	<!--Add new tiles definition here -->
+	<definition name="standardLayout" template="/sample/layouts/generation/standard.jsp">
+		<put-attribute name="top" value="/sample/layouts/generation/top.jsp" />
+		<put-attribute name="left"
+			value="/sample/layouts/generation/left.jsp" />
+		<put-attribute name="body"
+			value="/sample/layouts/generation/welcome.jsp" />
+	</definition>
+
+
+
+</tiles-definitions>

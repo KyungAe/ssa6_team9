@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE queryservice PUBLIC "-//ANYFRAME//DTD QUERYSERVICE//EN" "http://www.anyframejava.org/dtd/anyframe-core-query-mapping-3.2.dtd">
+<queryservice>
+  <queries>
+	<query id="createBoard">
+		<statement>
+		<![CDATA[
+			INSERT INTO BOARD ( 			
+				BOARD_ID, 
+				BOARD_DESC, 
+				BOARD_MASTER_ID, 
+				BOARD_NAME, 
+				BOARD_ORDER, 
+				BOARD_TOPICS, 
+				REG_DATE) 
+			VALUES (:vo.id.boardId, 
+				:vo.boardDesc, 
+				:vo.id.boardMasterId, 
+				:vo.boardName, 
+				:vo.boardOrder, 
+				:vo.boardTopics, 
+				:vo.regDate)
+		]]>
+		</statement>
+	</query>
+		
+	<query id="updateBoard">
+		<statement>
+		<![CDATA[
+			UPDATE BOARD
+			SET 
+				BOARD_DESC = :vo.boardDesc, 
+				BOARD_NAME = :vo.boardName, 
+				BOARD_ORDER = :vo.boardOrder, 
+				BOARD_TOPICS = :vo.boardTopics, 
+				REG_DATE = :vo.regDate
+				
+			WHERE
+				BOARD_ID = :vo.id.boardId AND BOARD_MASTER_ID = :vo.id.boardMasterId 
+		]]>
+		</statement>
+	</query>
+	
+	<query id="removeBoard">
+		<statement>
+		<![CDATA[
+			DELETE FROM BOARD 
+			WHERE 
+				BOARD_ID = :vo.id.boardId AND BOARD_MASTER_ID = :vo.id.boardMasterId
+		]]>
+		</statement>
+	</query>
+	
+	<query id="findBoardByPk">
+		<statement>
+		<![CDATA[
+			SELECT 
+				board.BOARD_ID, board.BOARD_DESC, board.BOARD_MASTER_ID, board.BOARD_NAME, board.BOARD_ORDER, board.BOARD_TOPICS, board.REG_DATE
+			FROM BOARD board
+			WHERE 
+				board.BOARD_ID = :vo.id.boardId AND board.BOARD_MASTER_ID = :vo.id.boardMasterId
+		]]>
+		</statement>
+		<result class="myproject.domain.Board">		
+			<result-mapping column="{BOARD_ID, BOARD_MASTER_ID}" attribute="{id.boardId, id.boardMasterId}"/>
+			<result-mapping column="{BOARD_MASTER_ID}" attribute="{boardMaster.boardMasterId}"/>
+		</result>											
+	</query>
+
+	<query id="findBoardList" isDynamic="true">
+		<statement>
+		<![CDATA[
+			SELECT 
+				board.BOARD_ID, board.BOARD_DESC, board.BOARD_MASTER_ID, board.BOARD_NAME, board.BOARD_ORDER, board.BOARD_TOPICS, board.REG_DATE 
+			FROM BOARD board
+			#if ($keywordNum != "")			
+				WHERE 		
+				#if ($condition == "All" || $condition == "")
+					(
+					  board.BOARD_NAME like :keywordStr
+					 #if($isNumeric == "true")
+					 	or board.BOARD_ID = {{keywordNum}}  or board.BOARD_MASTER_ID = {{keywordNum}}  or board.BOARD_TOPICS = {{keywordNum}} 
+					 #end
+					)	
+				#elseif($condition == "id.boardId")
+					board.BOARD_ID = {{keywordNum}}	
+				#elseif($condition == "id.boardMasterId")
+					board.BOARD_MASTER_ID = {{keywordNum}}	
+				#elseif($condition == "boardTopics")
+					board.BOARD_TOPICS = {{keywordNum}}	
+				#elseif($condition == "boardName")
+					board.BOARD_NAME like :keywordStr			
+				#end
+			#end			
+				order by							
+				board.BOARD_ID
+		]]>
+		</statement>
+		<result class="myproject.domain.Board">		
+			<result-mapping column="{BOARD_ID, BOARD_MASTER_ID}" attribute="{id.boardId, id.boardMasterId}"/>
+			<result-mapping column="{BOARD_MASTER_ID}" attribute="{boardMaster.boardMasterId}"/>
+		</result>				
+	</query>
+  </queries>
+</queryservice>

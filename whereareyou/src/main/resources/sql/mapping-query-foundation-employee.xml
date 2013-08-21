@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE queryservice PUBLIC "-//ANYFRAME//DTD QUERYSERVICE//EN" "http://www.anyframejava.org/dtd/anyframe-core-query-mapping-3.2.dtd">
+<queryservice>
+	<queries>
+		<query id="createEmployee">
+			<statement>
+				INSERT INTO EMPLOYEE (EMP_ID, EMP_NM, EMP_ENT_SEQ, EMP_DEPT_NM, EMP_SEND_CODE, EMP_PRJ_SEQ) 	
+				VALUES (:vo.empId, :vo.empNm, :vo.empEntSeq, :vo.empDeptNm, :vo.empSendCode, :vo.empPrjSeq)
+			</statement>
+		</query>
+
+		<query id="updateEmployee">
+			<statement>
+				UPDATE EMPLOYEE
+				SET EMP_NM = :vo.empNm,
+				    EMP_ENT_SEQ = :vo.empEntSeq,
+				    EMP_DEPT_NM = :vo.empDeptNm,
+				    EMP_SEND_CODE = :vo.empSendCode, 
+				    EMP_PRJ_SEQ = :vo.empPrjSeq
+				WHERE EMP_ID = :vo.empId
+			</statement>
+		</query>
+
+		<query id="removeEmployee">
+			<statement>
+				DELETE FROM EMPLOYEE
+				WHERE EMP_ID = :vo.empId
+			</statement>
+		</query>
+
+		<query id="findEmployeeByPk">
+			<statement>
+				SELECT EMP_ID, EMP_NM, EMP_ENT_SEQ, EMP_DEPT_NM, EMP_SEND_CODE, EMP_PRJ_SEQ, PRJ_NM
+				FROM EMPLOYEE
+				LEFT JOIN PROJECT
+				ON EMP_PRJ_SEQ = PROJECT.PRJ_SEQ
+				WHERE EMP_ID = :vo.empId
+			</statement>
+			<result class="com.sds.sweng.whereareyou.domain.Employee">
+				<result-mapping column="EMP_ID" attribute="empId" />
+				<result-mapping column="EMP_NM" attribute="empNm" />
+				<result-mapping column="EMP_ENT_SEQ" attribute="empEntSeq" />
+				<result-mapping column="EMP_DEPT_NM" attribute="empDeptNm" />
+				<result-mapping column="EMP_SEND_CODE" attribute="empSendCode" />
+				<result-mapping column="EMP_PRJ_SEQ" attribute="empPrjSeq" />
+				<result-mapping column="PRJ_NM" attribute="empPrjNm" />
+			</result>
+		</query>
+		
+		<query id="findEmployeeAllList">
+			<statement>
+				SELECT * FROM Employee
+			</statement>
+			<result class="com.sds.sweng.whereareyou.domain.Employee">
+				<result-mapping column="EMP_ID" attribute="empId" />
+				<result-mapping column="EMP_NM" attribute="empNm" />
+				<result-mapping column="EMP_ENT_SEQ" attribute="empEntSeq" />
+				<result-mapping column="EMP_DEPT_NM" attribute="empDeptNm" />
+				<result-mapping column="EMP_SEND_CODE" attribute="empSendCode" />
+				<result-mapping column="EMP_PRJ_SEQ" attribute="empPrjSeq" />
+			</result>
+		</query>
+		
+		<query id="findEmployeeList" isDynamic="true">
+			<statement>
+				<!--foundation findEmployeeList-START-->
+				SELECT EMP_ID, EMP_NM, EMP_ENT_SEQ, EMP_DEPT_NM, EMP_SEND_CODE, EMP_PRJ_SEQ, PRJ_NM
+				FROM EMPLOYEE
+				LEFT JOIN PROJECT
+				ON EMP_PRJ_SEQ = PROJECT.PRJ_SEQ
+				WHERE EMP_NM LIKE '%' || :vo.empNm || '%'
+				AND EMP_ID LIKE '%' || :vo.empId || '%'
+				AND IFNULL(EMP_ENT_SEQ, '') LIKE '%' || :vo.empEntSeq || '%'
+				AND IFNULL(EMP_PRJ_SEQ, '') LIKE '%' || :vo.empPrjSeq || '%'
+				ORDER BY EMP_ID ASC
+				<!--foundation findEmployeeList-END-->
+			</statement>
+			<result class="com.sds.sweng.whereareyou.domain.Employee">
+				<result-mapping column="EMP_ID" attribute="empId" />
+				<result-mapping column="EMP_NM" attribute="empNm" />
+				<result-mapping column="EMP_ENT_SEQ" attribute="empEntSeq" />
+				<result-mapping column="EMP_DEPT_NM" attribute="empDeptNm" />
+				<result-mapping column="EMP_SEND_CODE" attribute="empSendCode" />
+				<result-mapping column="EMP_PRJ_SEQ" attribute="empPrjSeq" />
+				<result-mapping column="PRJ_NM" attribute="empPrjNm" />
+			</result>
+		</query>
+			
+	</queries>
+</queryservice>
+

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE queryservice PUBLIC "-//ANYFRAME//DTD QUERYSERVICE//EN"
+"http://www.anyframejava.org/dtd/anyframe-core-query-mapping-3.2.dtd">
+<queryservice>
+	<queries>
+		<query id="createProject">
+			<statement>
+				INSERT INTO PROJECT (PRJ_SEQ, PRJ_NM, PRJ_ADDR, PRJ_REP_ID_EMP_ID, PRJ_POS_X, PRJ_POS_Y)
+				VALUES (:vo.prjSeq, :vo.prjNm, :vo.prjAddr, :vo.prjRepIdEmpId, :vo.prjPosX, :vo.prjPosY)
+			</statement>
+		</query>
+
+		<query id="updateProject">
+			<statement>
+				UPDATE PROJECT
+				SET	PRJ_NM = :vo.prjNm,
+				    PRJ_ADDR = :vo.prjAddr,
+				    PRJ_REP_ID_EMP_ID = :vo.prjRepIdEmpId,
+				    PRJ_POS_X = :vo.prjPosX, 
+				    PRJ_POS_Y = :vo.prjPosY
+				WHERE PRJ_SEQ = :vo.prjSeq
+			</statement>
+		</query>
+
+		<query id="removeProject">
+			<statement>
+				DELETE FROM PROJECT
+				WHERE PRJ_SEQ = :vo.prjSeq
+			</statement>
+		</query>
+
+		<query id="findProjectByPk">
+			<statement>
+				SELECT PRJ_SEQ, PRJ_NM, PRJ_ADDR, PRJ_REP_ID_EMP_ID, PRJ_POS_X, PRJ_POS_Y, EMP_NM
+				FROM PROJECT
+				LEFT JOIN EMPLOYEE
+				ON PRJ_REP_ID_EMP_ID=EMP_ID
+				WHERE PROJECT.PRJ_SEQ = :vo.prjSeq
+			</statement>
+			<result class="com.sds.sweng.whereareyou.domain.Project">
+				<result-mapping column="PRJ_SEQ" attribute="prjSeq" />
+				<result-mapping column="PRJ_NM" attribute="prjNm" />
+				<result-mapping column="PRJ_ADDR" attribute="prjAddr" />
+				<result-mapping column="PRJ_REP_ID_EMP_ID" attribute="prjRepIdEmpId" />
+				<result-mapping column="PRJ_POS_X" attribute="prjPosX" />
+				<result-mapping column="PRJ_POS_Y" attribute="prjPosY" />
+				<result-mapping column="EMP_NM" attribute="prjRepEmpNm" />
+			</result>
+		</query>
+		
+		<query id="findProjectAllList">
+			<statement>
+				SELECT * FROM PROJECT
+			</statement>
+			<result class="com.sds.sweng.whereareyou.domain.Project">
+				<result-mapping column="PRJ_SEQ" attribute="prjSeq" />
+				<result-mapping column="PRJ_NM" attribute="prjNm" />
+				<result-mapping column="PRJ_ADDR" attribute="prjAddr" />
+				<result-mapping column="PRJ_REP_ID_EMP_ID" attribute="prjRepIdEmpId" />
+				<result-mapping column="PRJ_POS_X" attribute="prjPosX" />
+				<result-mapping column="PRJ_POS_Y" attribute="prjPosY" />
+			</result>
+		</query>
+		
+		<query id="findProjectList">
+			<statement>
+				<!--foundation findEmployeeList-START-->
+				SELECT p.PRJ_SEQ, p.PRJ_NM, p.PRJ_ADDR, PRJ_REP_ID_EMP_ID, e.EMP_NM, p.PRJ_POS_X, p.PRJ_POS_Y
+				FROM PROJECT p
+				LEFT JOIN EMPLOYEE e
+				ON p.PRJ_REP_ID_EMP_ID= e.EMP_ID
+				WHERE p.PRJ_NM LIKE '%' || :vo.prjNm || '%'
+				AND p.PRJ_ADDR LIKE '%' || :vo.prjAddr || '%'
+				ORDER BY PRJ_SEQ DESC
+				<!--foundation findEmployeeList-END-->
+			</statement>
+			<result class="com.sds.sweng.whereareyou.domain.Project">
+				<result-mapping column="PRJ_SEQ" attribute="prjSeq" />
+				<result-mapping column="PRJ_NM" attribute="prjNm" />
+				<result-mapping column="PRJ_ADDR" attribute="prjAddr" />
+				<result-mapping column="PRJ_REP_ID_EMP_ID" attribute="prjRepIdEmpId" />
+				<result-mapping column="EMP_NM" attribute="prjRepEmpNm" />
+				<result-mapping column="PRJ_POS_X" attribute="prjPosX" />
+				<result-mapping column="PRJ_POS_Y" attribute="prjPosY" />
+			</result>
+		</query>		
+	</queries>
+</queryservice>
+

@@ -1,0 +1,47 @@
+# -- Project --
+
+project.prjSeq=프로젝트 번호
+project.prjNm=프로젝트 명
+project.prjAddr=프로젝트 주소
+project.prjPosX=X좌표
+project.prjPosY=Y좌표
+project.prjRepIdEmpId=대표자
+project.prjCnt=인원
+
+# -- Employee --
+
+employee.id=사번
+employee.name=이름
+employee.order=기수
+employee.projectname=투입프로젝트 명
+employee.dept=부서
+employee.code=파견코드
+employeeList.heading=사원들
+
+# -- Project Page --
+
+projectList.title=Project List
+projectList.heading=Projects
+projectDetail.title=Project Detail
+projectDetail.heading=Project Information
+
+# -- Employee Page --
+
+employeeList.title=Employee List
+employeeList.heading=Employees
+employeeDetail.title=Employee Detail
+employeeDetail.heading=Employee Information
+
+# -- Project Map --
+
+projectMapList.title=ProjectMap Detail
+projectMapList.heading=ProjectMap Information
+
+# -- Address --
+
+address.title=주소 찾기
+addressList.heading=Address Information
+
+# -- Dice Game --
+dice.name=Dice Game
+diceList.heading=Dice Games

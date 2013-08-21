@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE queryservice PUBLIC "-//ANYFRAME//DTD QUERYSERVICE//EN" "http://www.anyframejava.org/dtd/anyframe-core-query-mapping-3.2.dtd">
+<queryservice>
+	<queries>
+		<query id="createMap">
+			<statement>
+				INSERT INTO PROJECT (PRJ_SEQ, PRJ_NM, PRJ_ADDR, PRJ_REP_ID_EMP_ID, PRJ_POS_X, PRJ_POS_Y)
+				VALUES (:vo.prjSeq, :vo.prjNm, :vo.prjAddr, :vo.prjRepIdEmpId, :vo.prjPosX, :vo.prjPosY)
+			</statement>
+		</query>
+
+		<query id="updateMap">
+			<statement>
+				UPDATE PROJECT
+				SET	PRJ_POS_X = :vo.prjPosX, 
+				    PRJ_POS_Y = :vo.prjPosY
+				WHERE PRJ_SEQ = :vo.prjSeq
+			</statement>
+		</query>
+
+		<query id="removeMap">
+			<statement>
+				DELETE FROM PROJECT
+				WHERE PRJ_SEQ = :vo.prjSeq
+			</statement>
+		</query>
+
+		<query id="findMapByPk">
+			<statement>
+				SELECT PRJ_SEQ, PRJ_NM, PRJ_ADDR, PRJ_REP_ID_EMP_ID, PRJ_POS_X, PRJ_POS_Y, EMP_NM
+				FROM PROJECT, EMPLOYEE
+				WHERE PRJ_REP_ID_EMP_ID=EMP_ID
+				AND PROJECT.PRJ_SEQ = :vo.prjSeq
+			</statement>
+			<result class="com.sds.sweng.whereareyou.domain.Map">
+				<result-mapping column="PRJ_SEQ" attribute="prjSeq" />
+				<result-mapping column="PRJ_NM" attribute="prjNm" />
+				<result-mapping column="PRJ_ADDR" attribute="prjAddr" />
+				<result-mapping column="PRJ_REP_ID_EMP_ID" attribute="prjRepIdEmpId" />
+				<result-mapping column="PRJ_POS_X" attribute="prjPosX" />
+				<result-mapping column="PRJ_POS_Y" attribute="prjPosY" />
+				<result-mapping column="EMP_NM" attribute="prjRepEmpNm" />
+			</result>
+		</query>
+		
+		<query id="findMapAllList">
+			<statement>
+				SELECT p1.PRJ_SEQ, p1.PRJ_NM, p1.PRJ_POS_X, p1.PRJ_POS_Y, e1.EMP_NM, p1.PRJ_CNT
+					FROM (SELECT p.PRJ_SEQ, p.PRJ_NM, p.PRJ_POS_X, p.PRJ_POS_Y, p.COUNT(p.PRJ_SEQ) AS PRJ_CNT, p.PRJ_REP_ID_EMP_ID
+					FROM PROJECT p, EMPLOYEE e
+					WHERE p.PRJ_SEQ = e.EMP_PRJ_SEQ
+					GROUP BY p.PRJ_SEQ) p1, EMPLOYEE e1
+					WHERE p1.PRJ_REP_ID_EMP_ID = e1.EMP_ID
+			</statement>
+			<result class="com.sds.sweng.whereareyou.domain.Map">
+				<result-mapping column="PRJ_SEQ" attribute="prjSeq" />
+				<result-mapping column="PRJ_NM" attribute="prjNm" />
+				<result-mapping column="PRJ_POS_X" attribute="prjPosX" />
+				<result-mapping column="PRJ_POS_Y" attribute="prjPosY" />
+				<result-mapping column="EMP_NM" attribute="prjRepEmpNm" />
+				<result-mapping column="PRJ_CNT" attribute="prjCnt" />
+			</result>
+		</query>
+		
+		<query id="findMapList">
+			<statement>
+				<!--foundation findEmployeeList-START-->
+					SELECT p1.PRJ_SEQ, p1.PRJ_NM, p1.PRJ_POS_X, p1.PRJ_POS_Y, e1.EMP_NM, p1.PRJ_CNT
+					FROM (SELECT p.PRJ_SEQ, p.PRJ_NM, p.PRJ_POS_X, p.PRJ_POS_Y, p.COUNT(p.PRJ_SEQ) AS PRJ_CNT, p.PRJ_REP_ID_EMP_ID
+					FROM PROJECT p, EMPLOYEE e
+					WHERE p.PRJ_SEQ = e.EMP_PRJ_SEQ
+					GROUP BY p.PRJ_SEQ) p1, EMPLOYEE e1
+					WHERE p1.PRJ_REP_ID_EMP_ID = e1.EMP_ID
+				<!--foundation findEmployeeList-END-->
+			</statement>
+			<result class="com.sds.sweng.whereareyou.domain.Map">
+				<result-mapping column="PRJ_SEQ" attribute="prjSeq" />
+				<result-mapping column="PRJ_NM" attribute="prjNm" />
+				<result-mapping column="PRJ_POS_X" attribute="prjPosX" />
+				<result-mapping column="PRJ_POS_Y" attribute="prjPosY" />
+				<result-mapping column="EMP_NM" attribute="prjRepEmpNm" />
+				<result-mapping column="PRJ_CNT" attribute="prjCnt" />
+			</result>
+		</query>		
+	</queries>
+</queryservice>

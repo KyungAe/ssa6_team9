@@ -1,0 +1,54 @@
+mvn archetype:generate ?DarchetypeCatalog=http://dev.anyframejava.org/maven/repo/archetype-catalog.xml
+
+- 다음 오픈 API (JSON)
+http://dna.daum.net/apis/search/tutorial/basic_javascript
+
+- 우체국 API
+http://blog.naver.com/PostView.nhn?blogId=salmenia&logNo=100148876508&redirect=Dlog&widgetTypeCall=true
+
+- 우체국 API를 ajax, jquery, jdom, json을 이용한 우편번호 검색
+http://blog.naver.com/PostView.nhn?blogId=tombjjang&logNo=80121406575
+
+- Anyframe 설치 가이드
+http://dev.anyframejava.org/docs/anyframe/5.2.0/reference/htmlsingle/anyframe.html#installation_ant
+
+- 이클립스와 톰캣 연동하기
+http://dvel.tistory.com/entry/개발환경-구축-4-이클립스와-톰캣-연동하기
+
+
+이재환(인턴/삼성SDS) [오후 2:02]:
+  subclipse - http://subclipse.tigris.org/update_1.8.x
+이재환(인턴/삼성SDS) [오후 2:06]:
+  https://33.33.209.91/svn/intern
+  
+
+- pageContext.request.contextPath 란 ??? 왜 쓰는가 ??   4. skill / 20110223 이전 자료  
+
+Context 바뀌거나 해도 소스 수정없이 path를 적용하기 위해
+Ex )
+<img src="<c:out value='${pageContext.request.contextPath}'/>/html/images/sub/img1.gif">
+컨텍스트가 바뀌거나 해도 소스 수정없이 이미지가 출력하기 위해서 입니다.
+그리고 c:out을 사용하는 이유는 jstl에 널 값에 대한 대비와 servlet 2.3 (버전은 정확히는 모르지만 이쯤으로 알고 있습니다.)이전 버전에선 지원을 안해 주기 때문에 저렇게 표기 하는것을 알고 있습니다.
+ 좀더 자세히 보면
+pageContext.request.contextPath
+http uri는
+http://[host]:[port][/requestPath]?[get 방식의 경우 queryString] 체계를 이루며
+그중 [requestPath}는 다시 contextPath, ServletPath, PathInfo로 구성됩니다.
+Ex)
+http://localhost:8080/jjhcontest/servlet/info 로 가정한다면
+pageContext.request.contextPath 값은 =="/jjhcontest" 라는 문자열 입니다 .
+[출처] pageContext.request.contextPath 란 ??? 왜 쓰는가 ??|작성자 환
+
+
+
+- RequestMapping 관련해서 궁금하신 분들은 아래 링크 참조하세요! 아주 자세하네요 -종찬-
+http://blog.naver.com/ken6ybn?Redirect=Log&logNo=100170107735
+
+
+- 우체국  API KEY - <해민>
+b413c312a13a57fd01359594390581
+
+
+검색 엔터치면 작동 <재환>
+onkeydown="if((arguments[0]||event).keyCode==13){fncSearchEmployee();return false}"
+
